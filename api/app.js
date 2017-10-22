@@ -1,10 +1,7 @@
-//content of api/app.js
 const express = require('express')
 const bodyParser = require('body-parser');
-// const multer = require('multer')
 const clarifay = require('./clarifay')
 
-// const upload = multer({ storage })
 const app = express()
 app.use(bodyParser.urlencoded({
   extended: true
@@ -16,8 +13,11 @@ app.post('/api', function (req, res) {
   console.log(urls);
 
   const message = { "data": [] }
+  if(urls == null || urls.length == 0) {
+    res.status(200).send(message);
+  }
+
   urls.forEach(imageUrl => {
-      // predict the contents of an image by passing in base 64 encoded file
       clarifay
         .analyse(imageUrl)
         .then(
