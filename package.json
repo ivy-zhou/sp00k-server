@@ -1,0 +1,27 @@
+{
+  "name": "sp00k-server",
+  "version": "1.0.0",
+  "description": "Clarifai server which checks the sp00k",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ivy-zhou/sp00k-server.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ivy-zhou/sp00k-server/issues"
+  },
+  "homepage": "https://github.com/ivy-zhou/sp00k-server#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "clarifai": "^2.4.0",
+    "dotenv": "^4.0.0",
+    "express": "^4.16.2",
+    "multer": "^1.3.0"
+  }
+}
