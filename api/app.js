@@ -24,7 +24,7 @@ app.post('/api', function (req, res) {
         .then(
         response => {
           if(response.status.description == "Ok") {
-            var curData = {"isScary": false};
+            var curData = false;
             // Should only have 1 output
             var concepts = response.outputs[0].data.concepts;
             var scaryVal = -1;
@@ -40,9 +40,9 @@ app.post('/api', function (req, res) {
 
           // scaryVal takes precedence
           if(scaryVal > 0.8) {
-            curData["isScary"] = true;
+            curData = true;
           } else if (scaryVal == -1 && notScaryVal < 0.15) {
-            curData["isScary"] = true;
+            curData = true;
           }
 
           message.data.push(curData);
