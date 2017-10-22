@@ -3,7 +3,6 @@ const express = require('express')
 const bodyParser = require('body-parser');
 // const multer = require('multer')
 const clarifay = require('./clarifay')
-const fs = require('fs');
 
 // const upload = multer({ storage })
 const app = express()
