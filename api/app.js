@@ -2,6 +2,8 @@ const express = require('express')
 const bodyParser = require('body-parser');
 const clarifay = require('./clarifay')
 
+const THRESHOLD = 0.95;
+
 const app = express()
 app.use(bodyParser.urlencoded({
   extended: true
@@ -10,9 +12,17 @@ app.use(bodyParser.json());
 
 app.post('/api', function (req, res) {
   var urls = req.body.urls;
-  console.log(urls);
+  var spooks = req.body.spooks;
 
-  const message = { "data": [] }
+  spooks = spooks == null ?
+    [] : spooks.map(function(spook) { return spook.toLowerCase() });
+
+  console.log("filtering \"" + urls + "\" for \"" + spooks + "\"");
+
+  const message = {
+    data: []
+  }
+
   if(urls == null || urls.length == 0) {
     res.status(200).send(message);
   }
@@ -22,29 +32,23 @@ app.post('/api', function (req, res) {
         .analyse(imageUrl)
         .then(
         response => {
-          if(response.status.description == "Ok") {
-            var curData = false;
+          if(response.status.code == 10000) {
+            var isScary = false;
             // Should only have 1 output
             var concepts = response.outputs[0].data.concepts;
-            var scaryVal = -1;
-            var notScaryVal = -1;
             concepts.forEach(concept => {
-                if(concept["name"] == "sfw") {
-                  notScaryVal = concept["value"];
-                } else if (concept["name"] == "nsfw") {
-                  scaryVal = concept["value"];
+                // TODO: Implement NLP integration to filter similar words
+                if(spooks.indexOf(concept["name"]) != -1
+                  && concept["value"] > THRESHOLD) {
+                    isScary = true;
                 }
             });
           }
 
-          // scaryVal takes precedence
-          if(scaryVal > 0.8) {
-            curData = true;
-          } else if (scaryVal == -1 && notScaryVal < 0.15) {
-            curData = true;
-          }
-
-          message.data.push(curData);
+          message.data.push({
+            url: response.outputs[0].input.data.image.url,
+            scary: isScary
+          });
 
           if(message.data.length == urls.length) {
             res.status(200).send(message);
