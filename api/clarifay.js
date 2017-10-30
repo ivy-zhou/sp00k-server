@@ -5,7 +5,7 @@ var Clarifai = require('clarifai');
 class ImageProcessing extends Clarifai.App {
     analyse(urlString) {
         console.log("predicting from clarifay " + process.env.CLARIFAI_KEY);
-        return this.models.predict("e9576d86d2004ed1a38ba0cf39ecb4b1", urlString);
+        return this.models.predict("aaa03c23b3724a16a56b629203edc62c", urlString);
     }
 }
 

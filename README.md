@@ -14,10 +14,13 @@ Node server using Clarifai to filter out sp00ky images.
   Requires an `urls` array containing URLs of photos to be evaluated for spookiness.
   URLs should be public.
 
+  Requires a `spooks` array containing concepts to filter out.
+
   ```
     {
       {
-	       "urls": ["https://samples.clarifai.com/dog1.jpeg", "https://samples.clarifai.com/dog2.jpeg]
+        "spooks": ["dog"],
+	      "urls": ["https://samples.clarifai.com/dog1.jpeg", "https://samples.clarifai.com/dog2.jpeg]
       }
     }
   ```
@@ -26,15 +29,22 @@ Node server using Clarifai to filter out sp00ky images.
 
 **Response:**
 
-  Returns the requested list of urls back along with a data array of true/false values determining
-  whether the respective images are spooky.
+  Returns a `data` array of objects containing the URL and whether or not it is scary.
 
   **Code:** 200
 
   **Content:**
   ```
     {
-      "urls": ["https://samples.clarifai.com/dog1.jpeg", "https://samples.clarifai.com/dog2.jpeg],
-      "result": [false, false]
+      "data": [
+        {
+            "url": "https://samples.clarifai.com/dog1.jpeg",
+            "scary": true
+        },
+        {
+            "url": "https://developer.clarifai.com/static/images/model-samples/nsfw-002.jpg",
+            "scary": false
+        }
+      ]
     }
   ```
