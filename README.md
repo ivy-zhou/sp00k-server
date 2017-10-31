@@ -18,10 +18,8 @@ Node server using Clarifai to filter out sp00ky images.
 
   ```
     {
-      {
-        "spooks": ["dog"],
-	      "urls": ["https://samples.clarifai.com/dog1.jpeg", "https://samples.clarifai.com/dog2.jpeg]
-      }
+      "spooks": ["dog"],
+      "urls": ["https://samples.clarifai.com/dog1.jpeg", "https://samples.clarifai.com/dog2.jpeg]
     }
   ```
 

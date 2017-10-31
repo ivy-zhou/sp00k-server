@@ -1,10 +1,10 @@
-const express = require('express')
+const express = require('express');
 const bodyParser = require('body-parser');
-const clarifay = require('./clarifay')
+const clarifay = require('./clarifay');
 
-const THRESHOLD = 0.95;
+const THRESHOLD = 0.8;
 
-const app = express()
+const app = express();
 app.use(bodyParser.urlencoded({
   extended: true
 }));
